@@ -15,7 +15,7 @@ export default function Application(props) {
     interviewers: {}
   });
 
-  const dailyAppointments = [];
+  
   
   const setDay = (day) => setState({ ...state, day });
 
@@ -36,7 +36,7 @@ export default function Application(props) {
       console.log("all", all);  
     
       setState(prev => ({ ...prev, days, appointments, interviewers}));
-      dailyAppointments = getAppointmentsForDay(state, state.day)
+     
     })
     .catch((err) => console.log(err.message));
 }, [state.day])
