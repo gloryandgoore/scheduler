@@ -51,11 +51,12 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    const url = `/api/appointments/${id}`;
-    return axios.put(url, { interview })
+    const apiURL = `/api/appointments/${id}`;
+    return axios.put(apiURL, { interview })
       .then(() => {
         setState({ ...state, appointments });
-      });
+      })
+      .catch(error => console.log(error));
   }
 
   // deleting interviews
@@ -66,18 +67,19 @@ export default function Application(props) {
       interview: null
     };
 
-    const url = `/api/appointments/${id}`;
-    return axios.delete(url, { interview })
+    const apiURL = `/api/appointments/${id}`;
+    return axios.delete(apiURL, { interview })
       .then(() => {
         setState({ ...state, appointment });
-      });
+      })
+      .catch(error => console.log(error));
   }
 
   
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-  
+
   const dailyApts = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
