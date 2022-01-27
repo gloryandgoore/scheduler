@@ -3,24 +3,19 @@
 Interview Scheduler is a React application that allows users to book and cancel interviews. 
 
 ```sh
-HomePage
+HomePage:
 ```
-!["HomePage"]()
+!(https://github.com/gloryandgoore/scheduler/blob/master/docs/Scheduler%20-%20Homepage.png)
 
 ```sh
-Create Appointments
+Edit Appointments:
 ```
-!["Create Appointments"]()
+!(https://github.com/gloryandgoore/scheduler/blob/master/docs/Scheduler%20-%20Edit%20Appointment.png)
 
 ```sh
-Edit Appointments
+Delete Appointments:
 ```
-!["Edit Appointments"]()
-
-```sh
-Delete Appointments
-```
-!["Delete Appointments"]()
+!(https://github.com/gloryandgoore/scheduler/blob/master/docs/Scheduler%20-%20Delete%20Appointment.png)
 
 ## Setup
 
