@@ -49,8 +49,7 @@ const useApplicationData = () => {
       })
       .then(() => {
         return updateSpots();
-      })
-      .catch((error) => console.log(error));
+      });
   }
 
   // deleting interviews
@@ -68,8 +67,7 @@ const useApplicationData = () => {
       })
       .then(() => {
         return updateSpots();
-      })
-      .catch((error) => console.log(error));
+      });
   }
   return { state, setDay, bookInterview, cancelInterview };
 };

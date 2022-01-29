@@ -2,6 +2,7 @@ import React from "react";
 import "components/Appointment/styles.scss";
 import Confirm from "./Confirm";
 import Empty from "./Empty";
+import Error from "./Error";
 import Form from "./Form";
 import Header from "./Header";
 import Show from "./Show";
@@ -15,6 +16,8 @@ const CONFIRM = "CONFIRM";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   const { id, time, interview, interviewers, bookInterview, cancelInterview } =
@@ -22,29 +25,27 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   function save(name, interviewer) {
-    if (!name || !interviewer) {
-      return console.log("Name and/or interviewer not selected");
-    }
     const interview = {
       student: name,
       interviewer,
     };
 
     transition(SAVING);
-    bookInterview(id, interview).then(() => {
-      transition(SHOW);
-    });
+    bookInterview(id, interview)
+      .then(() => transition(SHOW))
+      .catch((error) => {
+        console.log("this is error", error);
+        transition(ERROR_SAVE, true);
+      });
   }
 
-  function deleting(name, interviewer) {
-    const interview = {
-      student: name,
-      interviewer,
-    };
-    transition(DELETING);
-    cancelInterview(id, interview).then(() => {
-      transition(EMPTY);
-    });
+  function deleting() {
+    transition(DELETING, true);
+    cancelInterview(id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch((error) => transition(ERROR_DELETE, true));
   }
 
   return (
@@ -84,6 +85,16 @@ export default function Appointment(props) {
           onSave={save}
           onCancel={() => back(SHOW)}
         />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Could not save appointment."
+          onClose={() => back(SHOW)}
+        />
+      )}
+
+      {mode === ERROR_DELETE && (
+        <Error message="Could not delete appointment" onClose={back} />
       )}
     </article>
   );
